@@ -3,7 +3,7 @@ class Trie(object):
 	def __init__(self):
 		self.trie = {}
 
-
+    #t: {'a': {'p': {'p': {'l': {'e': {'-': True}}}}}}
 	def insert(self, word):
 		t = self.trie
 		for c in word:

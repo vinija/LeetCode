@@ -13,14 +13,25 @@ class Codec:
         :type root: Node
         :rtype: str
         """
-        if not root:
+        if root is None:
             return ''
-        
-        def helper(x: 'Node') -> List:
-            if x:
-                return [[i.val,helper(i)] for i in x.children]
-        
-        return [root.val, helper(root)]
+        q = deque([root])
+        res = []
+        q.append('#')
+        while q:
+            sz = len(q)
+            for _ in range(sz):
+                node = q.popleft()
+                if node == '#':
+                    res.append('#')
+                    continue
+                # print(node)
+                res.append(str(node.val))
+                for c in node.children:
+                    q.append(c)
+                q.append('#')
+            # res.append('#')
+        return ','.join(res)
 	
     def deserialize(self, data: str) -> 'Node':
         """Decodes your encoded data to tree.
@@ -28,20 +39,25 @@ class Codec:
         :type data: str
         :rtype: Node
         """
-        if not data:
+        # print(data)
+        if len(data) == 0:
             return None
-        
-        def helper(vals):
-            if not vals:
-                return
-            
-            k = vals[0]
-            for i in vals[1:]:
-                node = Node(k)
-                node.children = [helper(x) for x in i]
-                return node
-            
-        return helper(data)
+        elements = data.split(',')
+        # print(elements)
+        while elements[-1] == '#':
+            elements.pop()
+        # print(elements)
+        root = Node(int(elements[0]), [])
+        q = deque([root])
+        for i in elements[1:]:
+            # print(i)
+            if i == '#':
+                cur = q.popleft()
+            else:
+                node = Node(int(i), [])
+                q.append(node)
+                cur.children.append(node)
+        return root
         
 
 # Your Codec object will be instantiated and called as such:

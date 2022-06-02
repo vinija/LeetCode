@@ -1,5 +1,32 @@
 class Solution:
-    def setZeroes(self, matrix):
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        self.rows = len(matrix)
+        self.cols = len(matrix[0])
+        
+        zeroCoords = []
+        
+        for row in range(self.rows):
+            for col in range(self.cols):
+                
+                if matrix[row][col] == 0:
+                    zeroCoords.append([row,col])
+        
+        for row, col in zeroCoords:
+            self.turnColZero(matrix,col)
+            self.turnRowZero(matrix,row)
+           
+    def turnColZero(self,matrix: List[List[int]], col:int) -> None:
+       for row in range(self.rows):
+            matrix[row][col] = 0
+    
+    def turnRowZero(self,matrix: List[List[int]],row:int) -> None:
+        
+        for col in range(self.cols):
+            matrix[row][col] = 0
+    def setZeroesSecondMoreEfficient(self, matrix):
         """
         :type matrix: List[List[int]]
         :rtype: void Do not return anything, modify matrix in-place instead.

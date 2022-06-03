@@ -10,6 +10,7 @@ class TicTacToe:
     def move(self, row: int, col: int, player: int) -> int:
         p = 1 if player == 1 else -1
         
+        #make the move
         self.rows[row] += p
         self.cols[col] += p
         
@@ -19,6 +20,7 @@ class TicTacToe:
         if row + col == self.n - 1:
             self.anti_diagonal += p
         
+        #winning condition
         if abs(self.rows[row]) == self.n or abs(self.cols[col]) == self.n or abs(self.diagonal) == self.n or abs(self.anti_diagonal) == self.n:
             return player
         

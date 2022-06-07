@@ -1,15 +1,19 @@
 class Solution:
     def isRobotBounded(self, instructions: str) -> bool:
-        direction = (0,1)
-        start = [0,0]
+        # north, east, south, west
+        move = [[0, 1], [1, 0], [0, -1], [-1, 0]]
         
-        for x in instructions:
-            if x == 'G':
-                start[0] += direction[0]
-                start[1] += direction[1]
-            elif x == 'L':
-                direction = (-direction[1], direction[0])
-            elif x == 'R':
-                direction = (direction[1], -direction[0])
+        x, y, direction = 0, 0, 0 # north
         
-        return start == [0,0] or direction != (0,1)
+        for i in instructions:
+            if i == 'G':
+                x += move[direction][0]
+                y += move[direction][1]
+            
+            if i == 'L':
+                direction = (direction + 1) % 4
+            
+            if i == 'R':
+                direction = (direction + 4 - 1) % 4
+            
+        return (x == 0 and y == 0) or direction != 0

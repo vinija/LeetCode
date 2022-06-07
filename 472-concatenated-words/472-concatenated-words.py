@@ -1,4 +1,4 @@
-# python code
+# ORIGINAL POST WITH EXPLANATION: https://leetcode.com/problems/concatenated-words/discuss/871866/Easyway-Explanation-every-step
 class Solution(object):
     def findAllConcatenatedWordsInADict(self, words):
         """

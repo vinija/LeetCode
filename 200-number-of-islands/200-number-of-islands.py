@@ -4,20 +4,22 @@ class Solution:
             return 0
 
         count = 0
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
-                if grid[i][j] == '1':
-                    self.dfs(grid, i, j)
+        for row in range(len(grid)):
+            for col in range(len(grid[0])):
+                if grid[row][col] == '1':
+                    self.dfs(grid, row, col)
                     count += 1
         return count
 
-    def dfs(self, grid, i, j):
-        if i<0 or j<0 or i>=len(grid) or j>=len(grid[0]) or grid[i][j] != '1':
+    def dfs(self, grid, row, col):
+        #base case, if not 1, then its not an island
+        if row<0 or col<0 or row>=len(grid) or col>=len(grid[0]) or grid[row][col] != '1':
             return
-        grid[i][j] = '#'
-        self.dfs(grid, i+1, j)
-        self.dfs(grid, i-1, j)
-        self.dfs(grid, i, j+1)
-        self.dfs(grid, i, j-1)
+        #update grid with islands we have visited already to not recount
+        grid[row][col] = '#'
+        self.dfs(grid, row+1, col)
+        self.dfs(grid, row-1, col)
+        self.dfs(grid, row, col+1)
+        self.dfs(grid, row, col-1)
 
         

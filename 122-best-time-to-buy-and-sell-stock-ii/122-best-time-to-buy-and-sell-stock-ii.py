@@ -1,4 +1,5 @@
 class Solution:
+    #Rising Slope a<b<c: Here, the optimal solution is to buy stock at price "a", and sell it at price "c". This solution is respected by our algorithm, since we can see that our transactions would be: (b-a)+(c-b) = c-a
     def maxProfit(self, prices: List[int]) -> int:
         maxProfit = 0
         

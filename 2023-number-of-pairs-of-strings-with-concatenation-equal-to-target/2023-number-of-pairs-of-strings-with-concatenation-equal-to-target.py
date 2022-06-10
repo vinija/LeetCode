@@ -1,16 +1,15 @@
-
 class Solution:
     def numOfPairs(self, nums: List[str], target: str) -> int:
-        ans = 0
-        freq = collections.Counter(nums)
-        # print(freq)
+        ans=0
+    
+        for i in range(len(nums)):
+            for j in range(i+1,len(nums)):
+                a,b=nums[i],nums[j]
 
-        for e in freq:
-            # print(target[:len(e)], target[len(e):] )
-            if target[:len(e)] == e:
-                suffix = target[len(e):]
-                ans += freq[e] * freq[suffix]
-                if e == suffix:
-                    ans -= freq[suffix]
+                if a+b==target:
+                    ans=ans+1
+
+                if b+a==target:
+                    ans=ans+1
 
         return ans

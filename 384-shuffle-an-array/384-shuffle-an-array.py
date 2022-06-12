@@ -1,17 +1,17 @@
+from random import random
+
 class Solution:
-	def __init__(self, nums: List[int]):
-		self.arr = nums  # Deep Copy, Can also use Shallow Copy concept!
-		# self.arr = nums  # Shallow Copy would be something like this!
 
-	def reset(self) -> List[int]:
-		return self.arr
+    def __init__(self, nums: List[int]):
+        self.nums = nums
+        
 
-	def shuffle(self) -> List[int]:
-		ans = self.arr[:]
-		for i in range(len(ans)):
-			swp_num = random.randrange(i, len(ans))  # Fisher-Yates Algorithm
-			ans[i], ans[swp_num] = ans[swp_num], ans[i]
-		return ans
+    def reset(self) -> List[int]:
+        return self.nums
+        
+
+    def shuffle(self) -> List[int]:
+        return sorted(self.nums, key=lambda _: random())
 
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(nums)

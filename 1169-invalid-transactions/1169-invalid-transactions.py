@@ -1,17 +1,29 @@
 class Solution:
-    def invalidTransactions(self, transactions: List[str]) -> List[str]:
+    def invalidTransactions(self, transactions: List[str]) -> List[str]:        
+        transactions_by_name = {}
+        
+        for transaction in transactions:
+            name, time, amount, city = transaction.split(',')
+            if name in transactions_by_name:
+                transactions_by_name[name].add((int(time), city))
+            else:
+                transactions_by_name[name] = {(int(time), city)}
+        
         invalid = []
         
-        for i, t1 in enumerate(transactions):
-            name1, time1, amount1, city1 = t1.split(',')
-            if int(amount1) > 1000:
-                invalid.append(t1)
-                continue
-            for j, t2 in enumerate(transactions):
-                if i != j: 
-                    name2, time2, amount2, city2 = t2.split(',')
-                    if name1 == name2 and city1 != city2 and abs(int(time1) - int(time2)) <= 60:
-                        invalid.append(t1)
-                        break
-        
+        for transaction in transactions:
+            name, time, amount, city = transaction.split(',')
+            if int(amount) > 1000:
+                invalid.append(transaction)
+            elif self.isInvalid(int(time), city, transactions_by_name[name]):
+                invalid.append(transaction) # Only want to append once because it will eventually get to the other transaction and look it up
+            
         return invalid
+    
+    def isInvalid(self, time, city, transactions_by_name):
+        for current_time, current_city in transactions_by_name:
+            if city != current_city and time in range(current_time-60, current_time+61):
+                return True
+        return False
+sol=Solution()
+print(sol.invalidTransactions(["alice,20,800,mtv","alice,50,100,beijing"]))

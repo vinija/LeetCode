@@ -1,11 +1,12 @@
 class Solution:
-    def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        lookup = {}
-        
-        for index in range(len(numbers)):
-            
-            if target - numbers[index] not in lookup:
-                lookup[numbers[index]] = index
-            
+    def twoSum(self, numbers, target):
+        left , right = 0 , len(numbers)-1
+        while left < right :
+            curr=numbers[left] + numbers[right]
+            if curr == target :
+                return [left+1,right+1]
+            elif curr > target:
+                right-=1
             else:
-                return [lookup[target-numbers[index]]+1,index+1]
+                left+=1
+        

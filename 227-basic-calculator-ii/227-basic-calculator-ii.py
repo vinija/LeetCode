@@ -6,6 +6,7 @@ class Solution:
             s+='+'
             stack = []
             for c in s:
+                #if the number is greater than 10
                 if c.isdigit():
                     num = num*10 + int(c)
                 elif c == ' ':

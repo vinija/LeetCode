@@ -9,7 +9,7 @@ class Solution:
                 if c.isdigit():
                     num = num*10 + int(c)
                 elif c == ' ':
-                        pass
+                        continue
                 else:
                     if pre_op == '+':
                         stack.append(num)

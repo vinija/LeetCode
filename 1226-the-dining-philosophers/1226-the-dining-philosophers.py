@@ -2,6 +2,7 @@ from threading import Semaphore
 
 class DiningPhilosophers:
     def __init__(self):
+        #at most pick 4 forks
         self.sizelock = Semaphore(4)
         self.locks = [Semaphore(1) for _ in range(5)]
 

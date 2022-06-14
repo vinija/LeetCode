@@ -3,8 +3,8 @@ class Solution:
         #idea: from right to left, have a max at hand, each smaller one is a candidate to swith
         # 98368: 8 -> 6 -> 3
         digits = list(str(num))
-        max_digit = (-1, -1) #val, pos
-        candidate = (-1, -1) # candidate pair
+        max_digit = (-1, -1) #val, index
+        candidate = (-1, -1) # candidate pair of indexes
         for i in range(len(digits)-1, -1, -1):
             if int(digits[i]) > max_digit[0]:
                 max_digit = (int(digits[i]), i)

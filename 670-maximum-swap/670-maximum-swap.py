@@ -1,15 +1,15 @@
 class Solution:
     def maximumSwap(self, num: int) -> int:
-        s = list(str(num))
-        n = len(s)
-        for i in range(n-1):                                # find index where s[i] < s[i+1], meaning a chance to flip
-            if s[i] < s[i+1]: break
-        else: return num                                    # if nothing find, return num
-        max_idx, max_val = i+1, s[i+1]                      # keep going right, find the maximum value index
-        for j in range(i+1, n):
-            if max_val <= s[j]: max_idx, max_val = j, s[j]
-        left_idx = i                                        # going right from i, find most left value that is less than max_val
-        for j in range(i, -1, -1):    
-            if s[j] < max_val: left_idx = j
-        s[max_idx], s[left_idx] = s[left_idx], s[max_idx]   # swap maximum after i and most left less than max
-        return int(''.join(s))  
+        #idea: from right to left, have a max at hand, each smaller one is a candidate to swith
+        # 98368: 8 -> 6 -> 3
+        digits = list(str(num))
+        max_digit = (-1, -1) #val, pos
+        candidate = (-1, -1) # candidate pair
+        for i in range(len(digits)-1, -1, -1):
+            if int(digits[i]) > max_digit[0]:
+                max_digit = (int(digits[i]), i)
+            elif int(digits[i]) < max_digit[0]: #smaller one found, but this can be replaced with a even smaller one
+                candidate = (i, max_digit[1])
+                
+        digits[candidate[0]], digits[candidate[1]] = digits[candidate[1]], digits[candidate[0]]
+        return int(''.join(digits))

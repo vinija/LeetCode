@@ -1,19 +1,23 @@
 class Solution:
     def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -> int:
-        seen_letters = {}
-        max_len = left = 0
+        seen = defaultdict(int)
+        start = 0
+        maxCount = 0
         
-        for right in range(len(s)):
-            if s[right] not in seen_letters:
-                seen_letters[s[right]] = 0
-            seen_letters[s[right]] += 1
-            while len(seen_letters) > k:
-                seen_letters[s[left]] -= 1
-                if seen_letters[s[left]] == 0:
-                    del seen_letters[s[left]]
-                left += 1
-
-
-            max_len = max(max_len, right-left+1)
+        for end,char in enumerate(s):
+            
+            seen[char] +=1
+            
+            
+            while len(seen) > k:
+                #start removing character from left
+                leftChar = s[start]
+                seen[leftChar]-=1
+                
+                if seen[leftChar]== 0:
+                    del seen[leftChar]
+                start +=1
+            count = end - start+1
+            maxCount = max(count,maxCount)
         
-        return max_len
+        return maxCount

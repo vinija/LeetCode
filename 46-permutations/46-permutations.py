@@ -1,19 +1,17 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-
-    
-        def backtrack(first = 0):
-            if first == numsLen:
-                output.append(nums[:])
-            for index in range(first,numsLen):
-                #lets take the integer at index and place it first
-                nums[first], nums[index] = nums[index], nums[first]
-                
-                #backtrack for next integers:
-                backtrack(first +1)
-                nums[first], nums[index] = nums[index], nums[first]
         
-        numsLen = len(nums)
-        output = []
-        backtrack()
-        return output
+        res = []
+        
+        def backtrack(perm, nums):
+            
+            if not nums:
+                res.append(perm[:])
+                
+            for i in range(len(nums)):
+                perm.append(nums[i])
+                backtrack(perm, nums[:i] + nums[i+1:])
+                perm.pop()
+        
+        backtrack([], nums)
+        return res

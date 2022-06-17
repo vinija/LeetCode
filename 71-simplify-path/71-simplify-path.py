@@ -1,7 +1,7 @@
 class Solution:
     def simplifyPath(self, path: str) -> str:
 
-        # Initialize a stack
+        # Initialize a stack O(N) both time and space
         stack = []
 
         # Split the input string on "/" as the delimiter

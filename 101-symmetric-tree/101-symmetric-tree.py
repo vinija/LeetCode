@@ -4,6 +4,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+# O(n) for both
 class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         return self.isMirror(root,root)

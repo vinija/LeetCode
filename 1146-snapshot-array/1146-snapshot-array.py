@@ -1,21 +1,21 @@
-class SnapshotArray(object):
+class SnapshotArray:
 
-    def __init__(self, length):
-        self.nums = {}
-        self.snaps = []   
+    def __init__(self, length: int):
+        self.cache = []
+        self.d = dict()
+        self.i = 0
 
-    def set(self, index, val):
-        self.nums[index] = val
+    def set(self, index: int, val: int) -> None:
+        self.d[index] = val
 
-    def snap(self):
-        self.snaps.append(self.nums.copy())
-        return len(self.snaps) - 1
+    def snap(self) -> int:
+        self.cache.append(dict(self.d))
+        self.i += 1
+        return self.i-1
 
-    def get(self, index, snap_id):
-        if index in self.snaps[snap_id]:
-            return self.snaps[snap_id][index]
-        else:
-            return 0
+    def get(self, index: int, snap_id: int) -> int:
+        snap = self.cache[snap_id]
+        return snap[index] if index in snap else 0
 
 
 # Your SnapshotArray object will be instantiated and called as such:

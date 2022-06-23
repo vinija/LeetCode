@@ -1,41 +1,39 @@
-class Solution:
-    def boundaryOfBinaryTree(self, root: Optional[TreeNode]) -> List[int]:
-        
-        def leftdfs(node):
-            if node:
-                if node.left is None and node.right is None:
-                    return []
-                else:
-                    if node.left:
-                        return [node.val] + leftdfs(node.left)
-                    else:
-                        return [node.val] + leftdfs(node.right)
-                    
+class Solution(object):
+    def boundaryOfBinaryTree(self, root):
+        def dfs_leftmost(node): # preorder
+            if not node or (not node.left and not node.right):
+                return
+            boundary.append(node.val)
+            
+            if node.left:
+                dfs_leftmost(node.left)
             else:
-                return []
-        
-        def findLeaves(node):
-            if node:
-                if node.right is None and node.left is None:
-                    return [node.val]
-                else:
-                    return findLeaves(node.left) + findLeaves(node.right)
+                dfs_leftmost(node.right)
+                
+        def dfs_rightmost(node): # postorder
+            if not node or not node.left and not node.right:
+                return
+            if node.right:
+                dfs_rightmost(node.right)
             else:
-                return []
+                dfs_rightmost(node.left)
+            boundary.append(node.val)
+
+        def dfs_leaves(node): # inorder
+            if not node:
+                return
+            dfs_leaves(node.left)
+            if node != root and not node.left and not node.right:
+                boundary.append(node.val)
+            dfs_leaves(node.right)
+            
+        if not root:
+            return []
         
-        def rightdfs(node):
-            if node:
-                if node.left is None and node.right is None:
-                    return []
-                else:
-                    if node.right:
-                        return rightdfs(node.right) + [node.val]
-                    else:
-                        return rightdfs(node.left) + [node.val]
-            else:
-                return []
-    
+        boundary = [root.val] # place root here first
         
-        leftandleavesandright = [root.val] + leftdfs(root.left) + findLeaves(root.left) + findLeaves(root.right) + rightdfs(root.right)
+        dfs_leftmost(root.left)
+        dfs_leaves(root)
+        dfs_rightmost(root.right)
         
-        return(leftandleavesandright)
+        return boundary

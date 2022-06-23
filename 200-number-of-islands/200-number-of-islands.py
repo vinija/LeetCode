@@ -1,3 +1,8 @@
+'''
+Time complexity : O(M \times N)O(M×N) where MM is the number of rows and NN is the number of columns.
+
+Space complexity : worst case O(M \times N)O(M×N) in case that the grid map is filled with lands where DFS goes by M \times NM×N deep
+'''
 class Solution:
     def numIslands(self, grid):
         if not grid:

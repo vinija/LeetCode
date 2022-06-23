@@ -2,24 +2,18 @@
 # space: O(n) to store visit list
 
 class Solution:
-    def findCircleNum(self, arr: List[List[int]]) -> int:
-        ret = 0
-        visited = set()
-        def markSurr(x):
-        
-            for index, conn in enumerate(arr[x]):
-                if conn and index not in visited:
-                    visited.add(index)
-                    markSurr(index)
-        
-        
-        
-        
-        for i in range(len(arr)):
-            if i not in visited:
-                ret += 1
-                visited.add(i)
-                markSurr(i)
-                
-                
-        return ret
+    def dsf(self, r, grid, visited):
+        visited.append(r)
+        for j in range(len(grid)):
+            if grid[r][j] == 1 and j not in visited:
+                self.dsf(j, grid, visited)
+
+    def findCircleNum(self, M) -> int:
+
+        visited = []
+        count = 0
+        for row in range(len(M)):
+            if row not in visited:
+                self.dsf(row, M, visited)
+                count += 1
+        return count

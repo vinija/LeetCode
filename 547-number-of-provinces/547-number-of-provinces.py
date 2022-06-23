@@ -2,25 +2,24 @@
 # space: O(n) to store visit list
 
 class Solution:
-    def findCircleNum(self, M: List[List[int]]) -> int:
-       
-        if not M:
-            return 0
+    def findCircleNum(self, arr: List[List[int]]) -> int:
+        ret = 0
+        visited = set()
+        def markSurr(x):
         
-        n = len(M)
-        visit = [False]*n
+            for index, conn in enumerate(arr[x]):
+                if conn and index not in visited:
+                    visited.add(index)
+                    markSurr(index)
         
-        def dfs(u):
-            for v in range(n):
-                if M[u][v] ==1 and visit[v] == False:
-                    visit[v] = True
-                    dfs(v)
         
-        count = 0
-        for i in range(n):
-            if visit[i] == False:
-                count += 1
-                visit[i] = True
-                dfs(i)
         
-        return count
+        
+        for i in range(len(arr)):
+            if i not in visited:
+                ret += 1
+                visited.add(i)
+                markSurr(i)
+                
+                
+        return ret

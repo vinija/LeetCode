@@ -4,6 +4,11 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+'''pre are nodes in the previous level.
+q are node in the current level.
+
+When current level are empty,
+the previous level are the deepest leaves.'''
 class Solution:
     def deepestLeavesSum(self, root: Optional[TreeNode]) -> int:
         q = [root]

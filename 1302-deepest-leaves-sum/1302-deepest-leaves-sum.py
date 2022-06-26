@@ -4,21 +4,24 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-'''pre are nodes in the previous level.
-q are node in the current level.
-
-When current level are empty,
-the previous level are the deepest leaves.'''
 class Solution:
     def deepestLeavesSum(self, root: Optional[TreeNode]) -> int:
-        q = [root]
-        while q:
-            pre = q
-            current = []
-            for p in q:
-                for child in [p.left, p.right] :
-                    if child:
-                        current.append(child)
-            q = current
+        maxDepth = 0
+        
+        def traverseDepths(depth, currList, node):
+            if depth == currList[0]:
+                currList[1] += node.val
+            elif depth > currList[0]:
+                currList[0] = depth
+                currList[1] = node.val               
             
-        return sum(node.val for node in pre)
+            if node.left:
+                traverseDepths(depth + 1, currList, node.left)
+            if node.right:
+                traverseDepths(depth + 1, currList, node.right)
+        
+        res = [0, 0]
+        traverseDepths(0, res, root)
+        
+        return res[1]
+        

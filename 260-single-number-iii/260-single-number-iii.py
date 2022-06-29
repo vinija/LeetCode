@@ -2,6 +2,7 @@ class Solution:
     def singleNumber(self, nums: List[int]) -> List[int]:
         counter = Counter(nums)
         n= 2
+        #reverse most common
         output = counter.most_common()[:-n-1:-1]
         ret = []
         for item, freq in output:

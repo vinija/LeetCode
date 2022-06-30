@@ -1,10 +1,10 @@
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
-        counter = Counter(nums)
+        seen = set()
         
-        for item,value in counter.items():
-            if value ==1:
-                return item
-        
-        return 0
-        
+        for num in nums:
+            if num not in seen:
+                seen.add(num)
+            else:
+                seen.remove(num)
+        return seen.pop()

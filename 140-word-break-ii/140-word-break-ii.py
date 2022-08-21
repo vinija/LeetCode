@@ -18,7 +18,8 @@ class Solution:
                 if word in wordSet:
                     for subsentence in dp[startIndex]:
                         sublist.append((subsentence + ' ' + word).strip())
-
+                        print(sublist)
+            
             dp[endIndex] = sublist
 
         return dp[len(s)]

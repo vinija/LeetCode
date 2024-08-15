@@ -1,22 +1,25 @@
+from typing import List
+
 class Solution:
     def maximumSwap(self, num: int) -> int:
-        #Convert the num to a list of characters -> digits
-        digits = list(str(num))
 
-        #dic store last occurence of each digit
-        last = {int(x): i for i, x in enumerate(digits)}
+        #convert num to a list of digits
+        numList = list(str(num))
+        n = len(numList)
 
-        #Traverse list of digits
-        for i, digit in enumerate(digits):
-            #check for viable swap
-            for d in range(9, int(digit), -1):
-                #if larger exists later in number
+        #create a list to store the position of each digit
+        last = {int(numList[i]): i for i in range(n) }
+        print(last)
 
+        #traverse list and check for swap opportunity
+        for i in range(n):
+            #check if larger digit in future to swap with
+            for d in range(9, int(numList[i]), -1):
                 if last.get(d, -1) > i:
-                    #swap the digits
-                    digits[i], digits[last[d]] = digits[last[d]], digits[i]
-                    #return the result as an int
-                    return int(''.join(digits))
-        
+                    #conduct the swap
+                    numList[i], numList[last[d]] = numList[last[d]], numList[i]
+                    #convert to int and return
+                    return int("".join(numList))
+
         return num
         

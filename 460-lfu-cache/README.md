@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/lfu-cache/">460. LFU Cache</a></h2><h3>Hard</h3><hr><div><p>Design and implement a data structure for a <a href="https://en.wikipedia.org/wiki/Least_frequently_used" target="_blank">Least Frequently Used (LFU)</a> cache.</p>
+<p>Design and implement a data structure for a <a href="https://en.wikipedia.org/wiki/Least_frequently_used" target="_blank">Least Frequently Used (LFU)</a> cache.</p>
 
 <p>Implement the <code>LFUCache</code> class:</p>
 
@@ -15,10 +15,11 @@
 <p>The functions&nbsp;<code data-stringify-type="code">get</code>&nbsp;and&nbsp;<code data-stringify-type="code">put</code>&nbsp;must each run in <code>O(1)</code> average time complexity.</p>
 
 <p>&nbsp;</p>
-<p><strong>Example 1:</strong></p>
+<p><strong class="example">Example 1:</strong></p>
 
-<pre><strong>Input</strong>
-["LFUCache", "put", "put", "get", "put", "get", "get", "put", "get", "get", "get"]
+<pre>
+<strong>Input</strong>
+[&quot;LFUCache&quot;, &quot;put&quot;, &quot;put&quot;, &quot;get&quot;, &quot;put&quot;, &quot;get&quot;, &quot;get&quot;, &quot;put&quot;, &quot;get&quot;, &quot;get&quot;, &quot;get&quot;]
 [[2], [1, 1], [2, 2], [1], [3, 3], [2], [3], [4, 4], [1], [3], [4]]
 <strong>Output</strong>
 [null, null, null, 1, null, -1, 3, null, -1, 3, 4]
@@ -49,11 +50,11 @@ lfu.get(4);      // return 4
 <p><strong>Constraints:</strong></p>
 
 <ul>
-	<li><code>0 &lt;= capacity&nbsp;&lt;= 10<sup>4</sup></code></li>
+	<li><code>1 &lt;= capacity&nbsp;&lt;= 10<sup>4</sup></code></li>
 	<li><code>0 &lt;= key &lt;= 10<sup>5</sup></code></li>
 	<li><code>0 &lt;= value &lt;= 10<sup>9</sup></code></li>
 	<li>At most <code>2 * 10<sup>5</sup></code>&nbsp;calls will be made to <code>get</code> and <code>put</code>.</li>
 </ul>
 
 <p>&nbsp;</p>
-<span style="display: none;">&nbsp;</span></div>
+<span style="display: none;">&nbsp;</span>

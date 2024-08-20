@@ -1,24 +1,34 @@
 class Solution:
     def pyramidTransition(self, bottom: str, allowed: List[str]) -> bool:
-        from collections import defaultdict
+        # Create a dictionary to store the allowed transitions
+        # Key: (char1, char2), Value: set of possible chars on top
+        transitions = {}
+        for triplet in allowed:
+            key = (triplet[0], triplet[1])
+            if key not in transitions:
+                transitions[key] = set()
+            transitions[key].add(triplet[2])
 
-        allowed_dict = defaultdict(list)
-        for pattern in allowed:
-            allowed_dict[pattern[0:2]].append(pattern[2])
-
-        
-        def canBuild(current_row: str, next_row: str, index: int) -> bool:
-            if len(current_row) == 1:
+        # Helper function to recursively check if the pyramid can be built
+        def canBuild(current: str, next_level: str, index: int) -> bool:
+            # If we successfully built the top of the pyramid, return True
+            if len(current) == 1:
                 return True
-            if index == len(current_row) - 1: 
-                return canBuild(next_row, "", 0)
             
-            base = current_row[index:index+2]
-            if base in allowed_dict:
-                for top_block in allowed_dict[base]:
-                    if canBuild(current_row, next_row + top_block, index + 1):
+            # If we filled the next level, move to the next level of the pyramid
+            if index == len(current) - 1:
+                return canBuild(next_level, "", 0)
+            
+            # Get the possible characters that can be placed on top
+            key = (current[index], current[index + 1])
+            if key in transitions:
+                for char in transitions[key]:
+                    # Recursively attempt to build the next level with the current choice
+                    if canBuild(current, next_level + char, index + 1):
                         return True
+            
+            # If no valid pyramid can be formed, return False
             return False
-        
+
+        # Start the pyramid building process from the bottom
         return canBuild(bottom, "", 0)
-        

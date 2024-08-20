@@ -1,29 +1,40 @@
 from typing import List
-from collections import defaultdict
 
 class Solution:
     def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
         if not mat or not mat[0]:
             return []
-        
-        diagonals = defaultdict(list)
+
         m, n = len(mat), len(mat[0])
-        
-        # Populate the diagonals dictionary
-        for i in range(m):
-            for j in range(n):
-                # Append elements to the corresponding diagonal group
-                diagonals[i + j].append(mat[i][j])
-        
         result = []
-        
-        # Traverse diagonals in zigzag order
-        for k in range(m + n - 1):
-            if k % 2 == 0:
-                # For even sum of indices, reverse the diagonal before adding
-                result.extend(diagonals[k][::-1])
+        row, col = 0, 0
+        direction = 1  # 1 means moving up-right, -1 means moving down-left
+
+        for _ in range(m * n):
+            result.append(mat[row][col])
+
+            # Moving in the up-right direction
+            if direction == 1:
+                if col == n - 1:  # Hit the right boundary
+                    row += 1
+                    direction = -1
+                elif row == 0:  # Hit the top boundary
+                    col += 1
+                    direction = -1
+                else:
+                    row -= 1
+                    col += 1
+
+            # Moving in the down-left direction
             else:
-                # For odd sum of indices, add the diagonal as is
-                result.extend(diagonals[k])
-        
+                if row == m - 1:  # Hit the bottom boundary
+                    col += 1
+                    direction = 1
+                elif col == 0:  # Hit the left boundary
+                    row += 1
+                    direction = 1
+                else:
+                    row += 1
+                    col -= 1
+
         return result

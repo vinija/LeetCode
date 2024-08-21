@@ -1,17 +1,12 @@
-from typing import List
-
 class Solution:
     def hIndex(self, citations: List[int]) -> int:
-        # Sort citations in non-decreasing order
-        citations.sort()
+        citations.sort(reverse=True)
+        h_index = 0
         
-        n = len(citations)
+        for i, c in enumerate(citations):
+            if i < c:
+                h_index = i + 1
+            else:
+                break
         
-        # Traverse the sorted list and find the h-index
-        for i in range(n):
-            # The h-index is where citations[i] >= n - i
-            if citations[i] >= n - i:
-                return n - i
-        
-        # If no valid h-index is found, return 0
-        return 0
+        return h_index

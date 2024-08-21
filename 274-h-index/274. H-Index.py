@@ -1,14 +1,12 @@
 class Solution:
     def hIndex(self, citations: List[int]) -> int:
+        citations.sort(reverse=True)
+        h_index = 0
 
-        citations.sort()
+        for i, c in enumerate(citations):
+            if i < c:
+                h_index = i + 1
+            else:
+                break
 
-        n = len(citations)
-
-        for i in range(n):
-             if citations[i] >= n - i:
-                return n - i
-        
-        return 0
-
-        
+        return h_index

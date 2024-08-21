@@ -1,5 +1,3 @@
-from typing import List
-
 class MyCalendar:
 
     def __init__(self):
@@ -7,12 +5,13 @@ class MyCalendar:
         
 
     def book(self, start: int, end: int) -> bool:
+        #check overlap w/ existing bookings
 
         for s, e in self.bookings:
-            if start < e and end > s: #overlap condition
+            if max(s, start) < min(e, end):
                 return False
         
-        self.bookings.append([start,end])
+        self.bookings.append((start,end))
         return True
         
 

@@ -1,21 +1,22 @@
+from typing import List
+
 class MyCalendarTwo:
 
     def __init__(self):
-        self.single_bookings = []
-        self.double_bookings = []
+        self.calendar = [] #single booking
+        self.overlaps = [] #double booking
         
 
     def book(self, start: int, end: int) -> bool:
-
-        for s, e in self.double_bookings:
-            if start < e and end > s:
+        #check triple booking case first
+        for os, oe in self.overlaps:
+            if start < oe and end > os:
                 return False
         
-        for s, e in self.single_bookings:
-            if start < e and end > s:
-                self.double_bookings.append((max(start,s), min(end, e)))
-        
-        self.single_bookings.append((start,end))
+        for cs, ce in self.calendar:
+            if start < ce and end > cs:
+                self.overlaps.append((max(start,cs), min(end,ce)))
+        self.calendar.append((start,end))
         return True
         
 

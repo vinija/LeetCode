@@ -3,42 +3,44 @@ class Solution:
         if numerator == 0:
             return "0"
         
-        res = []
+        result = []
         
-        # Determine the sign of the result
+        # Determine the sign
         if (numerator < 0) ^ (denominator < 0):
-            res.append('-')
+            result.append("-")
         
-        # Use absolute values to avoid dealing with negative numbers during division
-        numerator, denominator = abs(numerator), abs(denominator)
+        # Use absolute values to avoid handling negative numbers
+        numerator = abs(numerator)
+        denominator = abs(denominator)
         
-        # Get the integer part
+        # Integer part
         integer_part = numerator // denominator
-        res.append(str(integer_part))
+        result.append(str(integer_part))
         
-        # Calculate initial remainder
+        # Remainder
         remainder = numerator % denominator
+        
         if remainder == 0:
-            return ''.join(res)
+            return "".join(result)  # No fractional part
         
-        res.append('.')
+        result.append(".")
         
-        # Dictionary to store remainders and their corresponding positions in the result string
-        remainder_dict = {}
-        # Fractional part
+        # Map to store remainders and their corresponding positions in the result
+        remainder_map = {}
+        
         while remainder != 0:
-            # If this remainder has been seen before, it's the start of a cycle
-            if remainder in remainder_dict:
-                res.insert(remainder_dict[remainder], '(')
-                res.append(')')
+            # If the remainder is already seen, we have a repeating part
+            if remainder in remainder_map:
+                result.insert(remainder_map[remainder], "(")
+                result.append(")")
                 break
             
-            remainder_dict[remainder] = len(res)
+            # Store the position of this remainder
+            remainder_map[remainder] = len(result)
             
             remainder *= 10
-            res.append(str(remainder // denominator))
+            quotient = remainder // denominator
+            result.append(str(quotient))
             remainder %= denominator
         
-        return ''.join(res)
-
-        
+        return "".join(result)

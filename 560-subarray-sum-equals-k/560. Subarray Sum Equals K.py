@@ -1,16 +1,18 @@
+from typing import List
+
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
+        prefix_sum_count = {0:1} #init with sum 0 having one occurence
+        current_sum = 0
         count = 0
-        cumulative_sum = 0
-        sum_freq = defaultdict(int)
-        sum_freq[0] = 1
+
 
         for num in nums:
-            cumulative_sum += num
+            current_sum += num
 
-            if (cumulative_sum - k) in sum_freq:
-                count += sum_freq[cumulative_sum - k]
+            if (current_sum - k) in prefix_sum_count:
+                count += prefix_sum_count[current_sum-k]
             
-            sum_freq[cumulative_sum] += 1
+            prefix_sum_count[current_sum] = prefix_sum_count.get(current_sum,0) + 1
         
         return count

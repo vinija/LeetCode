@@ -11,6 +11,7 @@ class Solution:
         for i in range(len(nums) -1):
             #update the farthest position we can reach
             farthest = max(farthest, i + nums[i])
+            print(farthest)
 
             #If we reach the end of the current jump range
             if i == current_end:

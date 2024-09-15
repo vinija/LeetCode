@@ -1,39 +1,22 @@
-class Solution(object):
-    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
-        """
-        :type matrix: List[List[int]]
-        :type k: int
-        :rtype: int
-        """
-        def count_less_equal(matrix, smaller, mid, larger):
-            count, n = 0, len(matrix)
-            row, col = n - 1, 0
-            while row >= 0 and col < n:
-                if matrix[row][col] > mid:
-                  # as matrix[row][col] is bigger than the mid, let's keep track of the
-                  # smallest number greater than the mid
-                  larger = min(larger, matrix[row][col])
-                  row -= 1
-                else:
-                  # as matrix[row][col] is less than or equal to the mid, let's keep track of the
-                  # biggest number less than or equal to the mid
-                  smaller = max(smaller, matrix[row][col])
-                  count += row + 1
-                  col += 1
+from heapq import heappush, heappop
 
-            return count, smaller, larger
-            
-        l, r = matrix[0][0], matrix[-1][-1]
-        while l < r:
-            mid = (l + r) // 2 # or l + (r - l) // 2
-            
-            # calculate how many numbers are on the left of middle number
-            count, smaller, larger = count_less_equal(matrix, l, mid, r)
-            # or order = sum(bisect.bisect(row, m) for row in matrix) < k:  
-            
-            if count >= k:
-                r = smaller # search lower
-            else:
-                l = larger # search higher
-                
-        return l
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        minHeap = []
+
+        # put the 1st element of each row in the min heap
+        # we don't need to push more than 'k' elements in the heap
+        for i in range(min(k, len(matrix))):
+            heappush(minHeap, (matrix[i][0], 0, matrix[i]))
+
+        # take the smallest(top) element form the min heap, if the running count is equal to k' return the number
+        # if the row of the top element has more elements, add the next element to the heap
+        numberCount, number = 0, 0
+        while minHeap:
+            number, i, row = heappop(minHeap)
+            numberCount += 1
+            if numberCount == k:
+                break
+            if len(row) > i+1:
+                heappush(minHeap, (row[i+1], i+1, row))
+        return number
